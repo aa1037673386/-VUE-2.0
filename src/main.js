@@ -1,12 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import './js/size.js'
-// import './css/base.css'
 import axios from 'axios'
 import VueRouter from 'vue-router'
 import routes from './routerConfig.js'
 import stores from './store/store'
+import  '../node_modules/protobufjs/dist/protobuf.js'
+// import './protobuf/protoload'
+
+import { Button, Select, Switch} from 'element-ui'
+
+Vue.component(Button.name, Button)
+Vue.component(Select.name, Select)
+Vue.component(Switch.name, Switch)
+
 Vue.use(VueRouter);
+// Vue.use(protobuf);
 
 const router=new VueRouter({
   mode: 'history', //切换路径模式，变成history模式
@@ -30,6 +38,7 @@ axios.interceptors.response.use(function (response) { //配置请求回来的信
   return Promise.reject(error);
 });
 Vue.prototype.$http = axios
+Vue.prototype.$protobuf = protobuf
 
 new Vue({
   router,

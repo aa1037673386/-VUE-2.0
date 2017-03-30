@@ -1,0 +1,82 @@
+// Demo
+
+syntax = "proto3";
+
+option optimize_for = LITE_RUNTIME;
+
+package Demo;
+
+enum EnumType
+{
+	EnumType_None = 0;
+	EnumType_One = 1;
+	EnumType_Two = 2;
+	EnumType_Other = 3;
+}
+
+message DataType
+{
+	EnumType Type = 1;
+	double Double = 2;
+	float Float = 3;
+	int32 Int32 = 4;
+	int64 Int64 = 5;
+	uint32 UInt32 = 6;
+	uint64 UInt64 = 7;
+	sint32 SInt32 = 8;
+	sint64 SInt64 = 9;
+	fixed32 Fixed32 = 10;
+	fixed64 Fixed64 = 11;
+	sfixed32 SFixed32 = 12;
+	sfixed64 SFixed64 = 13;
+	bool Bool = 14;
+	string String = 15;
+	bytes Bytes = 16;
+}
+
+message SimpleType1
+{
+	int32 Id = 1;
+	double Cost = 2;
+}
+
+message SimpleType2
+{
+	int32 Id = 1;
+	string Text = 2;
+	int64 Time = 3;
+}
+
+message RequestPack
+{
+	EnumType Type = 1;
+	float Point = 2;
+	DataType Data = 3;
+	oneof Param
+	{
+		uint64 Hours = 4;
+		string Uuid = 5;
+		SimpleType1 Course = 6;
+		SimpleType2 Remark = 7;
+	}
+	repeated string Names = 8;
+	repeated uint32 Numbers = 9 [packed=true];
+	repeated SimpleType1 Orders = 10;
+}
+
+message ResponsePack
+{
+	sint32 Code = 1;
+	string Message = 2;
+	DataType Data = 3;
+	oneof Result
+	{
+		uint64 Hours = 4;
+		string Uuid = 5;
+		SimpleType1 Course = 6;
+		SimpleType2 Remark = 7;
+	}
+	repeated string Names = 8;
+	repeated uint32 Numbers = 9 [packed=true];
+	repeated SimpleType2 Orders = 10;
+}
